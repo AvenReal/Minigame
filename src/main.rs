@@ -1,5 +1,7 @@
+
+
 mod commands;
-mod player;
+mod screen;
 
 fn main() {
     let mut inp = String::new();
@@ -9,8 +11,9 @@ fn main() {
             println!("{} : {:b} -> {:b} ", i, 't' as u8, 't' as u8 / i);
         }
     }
-    while commands::Command::parse_command(&inp).execute() {
+    while commands::parse_command(&inp).execute() {
         inp.clear();
         stdin().read_line(&mut inp);
+        
     }
 }
