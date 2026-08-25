@@ -14,10 +14,12 @@ A Terminal Minigame made in Rsut to learn the language
   - [ ] `execute()`
 - [ ] Screen
   - [ ] Structs & Enums
-  - [ ] `print_on_screen()`
-  - [ ] `error_message()`
+  - [x] `print_on_screen()`
+  - [x] `print_alert()`
+  - [x] `get_screen_size()`
   - [ ] ...
 - [] Player
-  - [] `move_to()`
-  - [] ...
+  - [x] `move_to()`
+  - [x] `move_direction()`
+  - [ ] ...
 - [] Level Design
