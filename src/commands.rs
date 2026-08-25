@@ -1,3 +1,6 @@
+use crate::screen;
+use crate::player;
+
 pub enum Direction {
     Left,
     Right,
@@ -122,12 +125,12 @@ impl Command {
         match self {
             Command::Exit => return false,
             Command::Invalid(err_msg) => {
-                println!("\x1B[0;31m{}\x1B[0m", err_msg);
+                screen::print_alert(err_msg);
             }
 
             Command::None => (),
-            Command::Help(_) => todo!(),
-            Command::Move(_, direction) => todo!(),
+            Command::Help(cmd) => screen::print_alert(&Command::help_string(cmd)),
+            Command::Move(n, direction) => todo!(),
             Command::Repeat(_, _) => todo!(),
         }
 

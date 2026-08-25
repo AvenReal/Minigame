@@ -8,8 +8,16 @@ A Terminal Minigame made in Rsut to learn the language
 ## TODO
 
 - [] Commands
-  - [x] Commands System
-  - [] Each Command Implementation
-- [] Terminal Based UI
+  - [x] Structs & Enums
+  - [x] Direction
+  - [x] `parse_command()`
+  - [ ] `execute()`
+- [ ] Screen
+  - [ ] Structs & Enums
+  - [ ] `print_on_screen()`
+  - [ ] `error_message()`
+  - [ ] ...
 - [] Player
+  - [] `move_to()`
+  - [] ...
 - [] Level Design
