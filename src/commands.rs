@@ -1,5 +1,6 @@
-use crate::screen;
+use crate::commands;
 use crate::player;
+use crate::screen;
 
 pub enum Direction {
     Left,
@@ -10,13 +11,17 @@ pub enum Direction {
 
 impl Direction {
     fn from_str(s: &str) -> Option<Direction> {
-        return match s {
-            "left" => Some(Direction::Left),
-            "right" => Some(Direction::Right),
-            "up" => Some(Direction::Up),
-            "down" => Some(Direction::Down),
-            _ => None,
-        };
+        if s.cmp("left").is_eq() {
+            Some(Direction::Left)
+        } else if s.cmp("right").is_eq() {
+            Some(Direction::Right)
+        } else if s.cmp("up").is_eq() {
+            Some(Direction::Up)
+        } else if s.cmp("down").is_eq() {
+            Some(Direction::Down)
+        } else {
+            None
+        }
     }
 }
 
@@ -65,12 +70,12 @@ pub fn parse_command(command_str: &String) -> Command {
                         ));
                     }
                 },
-                match Direction::from_str(args[1]) {
+                match Direction::from_str(args[1].trim()) {
                     Some(d) => d,
                     None => {
                         return Command::Invalid(format!(
                             "Argument needed to be a direction (either left, right, up or down), got {}",
-                            args[0]
+                            args[1]
                         ));
                     }
                 },
@@ -88,7 +93,7 @@ pub fn parse_command(command_str: &String) -> Command {
                         ));
                     }
                 },
-                args[1..].concat(),
+                args[1..].join(" "),
             ),
         },
         cmd => Command::Invalid(format!("No command found: '{}'", cmd)),
@@ -121,7 +126,7 @@ impl Command {
         };
     }
 
-    pub fn execute(&self) -> bool {
+    pub fn execute(&self, p: &mut player::Player) -> bool {
         match self {
             Command::Exit => return false,
             Command::Invalid(err_msg) => {
@@ -130,8 +135,16 @@ impl Command {
 
             Command::None => (),
             Command::Help(cmd) => screen::print_alert(&Command::help_string(cmd)),
-            Command::Move(n, direction) => todo!(),
-            Command::Repeat(_, _) => todo!(),
+            Command::Move(n, direction) => match p.move_direction(*n, direction) {
+                Ok(_) => (),
+                Err(c) => return c.execute(p),
+            },
+            Command::Repeat(n, s) => {
+                let c = parse_command(s);
+                for i in 0..(*n as i32) {
+                    c.execute(p);
+                }
+            }
         }
 
         return true;
