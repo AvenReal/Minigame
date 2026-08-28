@@ -127,6 +127,7 @@ impl Command {
     }
 
     pub fn execute(&self, p: &mut player::Player) -> bool {
+        
         match self {
             Command::Exit => return false,
             Command::Invalid(err_msg) => {
@@ -134,7 +135,7 @@ impl Command {
             }
 
             Command::None => (),
-            Command::Help(cmd) => screen::print_alert(&Command::help_string(cmd)),
+            Command::Help(cmd) => screen::print_alert(&Command::help_string(cmd.trim())),
             Command::Move(n, direction) => match p.move_direction(*n, direction) {
                 Ok(_) => (),
                 Err(c) => return c.execute(p),
@@ -149,4 +150,5 @@ impl Command {
 
         return true;
     }
+
 }

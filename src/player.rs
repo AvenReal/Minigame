@@ -41,8 +41,8 @@ impl Player {
             _ => 0,
         };
         let dx: i8 = match direction {
-            commands::Direction::Left => 1,
-            commands::Direction::Right => -1,
+            commands::Direction::Left => -1,
+            commands::Direction::Right => 1,
             _ => 0,
         };
 
